@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 namespace Rdr\SnowflakeJodo;
 
 use GuzzleHttp\Client;
@@ -20,13 +19,38 @@ class SnowflakeJodo
         return $instance;
     }
 
-    public function query(string $sql, array $bindings = [])
+    public function prepare(string $sql, array $bindings = [])
+    {
+        return new SnowflakeStatement($this->client, $this->apiUrl, $sql, $bindings);
+    }
+}
+
+class SnowflakeStatement
+{
+    protected $client;
+    protected $apiUrl;
+    protected $sql;
+    protected $bindings;
+    protected $results;
+    protected $currentIndex;
+
+    public function __construct($client, $apiUrl, $sql, $bindings)
+    {
+        $this->client = $client;
+        $this->apiUrl = $apiUrl;
+        $this->sql = $sql;
+        $this->bindings = $bindings;
+        $this->results = null;
+        $this->currentIndex = 0;
+    }
+
+    protected function execute()
     {
         try {
             $response = $this->client->post('/api/snowflake/query', [
                 'json' => [
-                    'sql' => $sql,
-                    'bindings' => $bindings 
+                    'sql' => $this->sql,
+                    'bindings' => $this->bindings 
                 ]
             ]);
 
@@ -35,7 +59,9 @@ class SnowflakeJodo
             if (isset($data['error'])) {
                 throw new SnowflakeConnectionException($data['error']);
             }
-            return $data;
+
+            $this->results = $data;
+            $this->currentIndex = 0;
 
         } catch (SnowflakeConnectionException $e) {
             throw $e; 
@@ -43,5 +69,26 @@ class SnowflakeJodo
         } catch (\Exception $e) { 
             throw new SnowflakeConnectionException("Error: " . $e->getMessage());
         }
+    }
+
+    public function fetch()
+    {
+        if ($this->results === null) {
+            $this->execute();
+        }
+
+        if ($this->currentIndex < count($this->results)) {
+            return $this->results[$this->currentIndex++];
+        }
+        return false; // No more rows
+    }
+
+    public function fetchAll()
+    {
+        if ($this->results === null) {
+            $this->execute();
+        }
+
+        return $this->results;
     }
 }
