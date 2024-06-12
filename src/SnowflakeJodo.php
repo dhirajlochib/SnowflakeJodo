@@ -1,6 +1,6 @@
 <?php
 
-namespace Src;
+namespace Rdr\SnowflakeJodo;
 
 use GuzzleHttp\Client;
 use Rdr\SnowflakeJodo\Exceptions\SnowflakeConnectionException;
