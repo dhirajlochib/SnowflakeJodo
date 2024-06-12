@@ -8,7 +8,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Rdr\\SnowflakeJodo\\": "src\\"
+            "rdr\\snowflake-jodo\\": "src/"
         }
     },
     "authors": [
@@ -21,10 +21,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Rdr\\Snowflakejodo\\SnowflakeJodoServiceProvider"
+                "Rdr\\SnowflakeJodo\\SnowflakeJodoServiceProvider"
             ],
             "aliases": {
-                "SnowflakeJodo": "Rdr\\Snowflakejodo\\SnowflakeJodo"
+                "SnowflakeJodo": "Rdr\\SnowflakeJodo\\SnowflakeJodo"
             }
         }
     }
