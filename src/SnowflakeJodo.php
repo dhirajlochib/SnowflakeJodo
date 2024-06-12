@@ -35,8 +35,7 @@ class SnowflakeJodo
             if (isset($data['error'])) {
                 throw new SnowflakeConnectionException($data['error']);
             }
-
-            return new SnowflakeStatement($data);
+            return $data;
 
         } catch (SnowflakeConnectionException $e) {
             throw $e; 
