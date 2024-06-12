@@ -21,10 +21,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Rdr\\SnowflakeJodo\\SnowflakeJodoServiceProvider"
+                "Rdr\\Snowflakejodo\\SnowflakeJodoServiceProvider"
             ],
             "aliases": {
-                "SnowflakeJodo": "Rdr\\SnowflakeJodo\\Facades\\SnowflakeJodo"
+                "SnowflakeJodo": "Rdr\\Snowflakejodo\\SnowflakeJodo"
             }
         }
     }
