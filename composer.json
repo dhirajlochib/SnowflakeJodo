@@ -8,7 +8,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Rdr\\SnowflakeJodo\\": "src/"
+            "Rdr\\SnowflakeJodo\\": "src\\"
         }
     },
     "authors": [

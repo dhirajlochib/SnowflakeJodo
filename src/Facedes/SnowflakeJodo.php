@@ -1,6 +1,6 @@
 <?php 
 
-namespace Rdr\SnowflakeJodo\Facades;
+namespace Vendor\Rdr\Snowflakejodo\Src\Facedes;
 
 use Illuminate\Support\Facades\Facade;
 
